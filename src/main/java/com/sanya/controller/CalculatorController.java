@@ -1,40 +1,57 @@
 package com.sanya.controller;
 
 import com.sanya.calculator.CalculatorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class CalculatorController {
-
-   /* @RequestMapping(value = { "/calculator/add" }, method = RequestMethod.GET)
-    public String showAddPersonPage(Model model) {
-
-        PersonForm personForm = new PersonForm();
-        model.addAttribute("personForm", personForm);
-
-        return "addPerson";
-    }*/
-
-
-
-
-    @Autowired
-    CalculatorService calculatorService;
-    @RequestMapping(value = {"/calculator/add"}, method = RequestMethod.GET)
-    public Long add(@RequestParam("param1") Integer arg1, @RequestParam("param2") Integer arg2) {
-        return calculatorService.calculate(1, arg1, arg2);
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("operation", "+");
+/*
+        model.addAttribute("view", "views/calc-layout");
+*/
+        return "calc-layout";
     }
-    @GetMapping("/calculator/min")
-    public Long min(@RequestParam("param1") Integer arg1, @RequestParam("param2") Integer arg2) {
-        return calculatorService.calculate(2, arg1, arg2);
-    }
-    @GetMapping("/calculator/mul")
-    public Long mul(@RequestParam("param1") Integer arg1, @RequestParam("param2") Integer arg2) {
-        return calculatorService.calculate(3, arg1, arg2);
-    }
-    @GetMapping("/calculator/div")
-    public Long div(@RequestParam("param1") Integer arg1, @RequestParam("param2") Integer arg2) {
-        return calculatorService.calculate(4, arg1, arg2);
+
+    @PostMapping("/")
+    public String index(
+            @RequestParam String leftString,
+            @RequestParam String operation,
+            @RequestParam String rightString,
+            Model model
+    ) {
+        double leftNumber;
+        double rightNumber;
+
+        try {
+            leftNumber = Double.parseDouble(leftString);
+        }
+        catch (NumberFormatException e) {
+            leftNumber = 0;
+        }
+
+        try {
+            rightNumber = Double.parseDouble(rightString);
+        }
+        catch (NumberFormatException e) {
+            rightNumber = 0;
+        }
+
+        CalculatorService cs = new CalculatorService(leftNumber, rightNumber, operation);
+
+        double result =  cs.calculate();
+
+        model.addAttribute("leftString", leftNumber);
+        model.addAttribute("operation", operation);
+        model.addAttribute("rightString", rightNumber);
+        model.addAttribute("result", result);
+
+/*
+        model.addAttribute("view", "views/calc-layout");
+*/
+        return "calc-layout";
     }
 }

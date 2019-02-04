@@ -1,45 +1,56 @@
 package com.sanya.calculator;
 
-import org.springframework.stereotype.Service;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
-
-@Service
 public class CalculatorService {
+    private double leftNumber;
+    private double rightNumber;
+    private String operation;
 
-    public long calculate(int operation, int number1, int number2)  {
+    public CalculatorService(double leftNumber, double rightNumber, String operation) {
+        this.leftNumber = leftNumber;
+        this.rightNumber = rightNumber;
+        this.operation = operation;
+    }
 
-        long result = 0;
-        switch (operation) {
-            case 1:  operation = 1;
-                result = number1 + number2;
+    public double getLeftNumber() {
+        return leftNumber;
+    }
+
+    public void setLeftNumber(double leftNumber) {
+        this.leftNumber = leftNumber;
+    }
+
+    public double getRightNumber() {
+        return rightNumber;
+    }
+
+    public void setRightNumber(double rightNumber) {
+        this.rightNumber = rightNumber;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public Double calculate()  {
+        double result = 0;
+        switch (this.operation) {
+            case  "+":
+                result = this.leftNumber + this.rightNumber;
                 break;
-            case 2:  operation = 2;
-                result = number1 - number2;
+            case "-":
+                result = this.leftNumber - this.rightNumber;
                 break;
-            case 3:  operation = 3;
-                result = number1 * number2;
+            case "*":
+                result = this.leftNumber * this.rightNumber;
                 break;
-            case 4:  operation = 4;
-                result = number1 / number2;
+            case "/":
+                result = this.leftNumber / this.rightNumber;
                 break;
         }
         return result;
-
-       /* if(operation == 1) {
-            System.out.println("Result is: " + (number1 + number2));
-        }
-        if(operation == 2) {
-            System.out.println("Result is: " + (number1 - number2));
-        }
-        if(operation == 3) {
-            System.out.println("Result is: " + (number1 * number2));
-        }
-        if(operation == 4) {
-            System.out.println("Result is: " + (number1 / number2));
-        }*/
     }
 }
