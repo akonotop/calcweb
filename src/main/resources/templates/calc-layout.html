@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Calculator</title>
+</head>
+<body>
+<h1>Calculator</h1>
+<div>
+    <form th:action="@{/}" method="POST" xmlns:th="http://www.w3.org/1999/xhtml">
+        <fieldset>
+            <div>
+                <div>
+                    <input type="number" placeholder="Left Number" name="leftString" th:value="${leftString}"/>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <select name="operation">
+                        <option value="+" th:selected="${operation.equals('+')}"> + </option>
+                        <option value="-" th:selected="${operation.equals('-')}"> - </option>
+                        <option value="*" th:selected="${operation.equals('*')}"> * </option>
+                        <option value="/" th:selected="${operation.equals('/')}"> / </option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <input type="number" placeholder="Right Number" name="rightString" th:value="${rightString}"/>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <p>=</p>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <input type="text" placeholder="Result" name="result" th:value="${result}"/>
+                </div>
+            </div>
+
+            <div>
+                <button tupe="submit">Result</button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+</body>
+<footer>
+    @2019 - Copyright by Alex Ko
+</footer>
+</html>
